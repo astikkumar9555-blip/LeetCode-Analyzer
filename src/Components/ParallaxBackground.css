@@ -1,0 +1,53 @@
+.parallax {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ---- Layer wrapper: moves to a new spot each time the page changes ---- */
+.layer {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(calc(var(--vx) * var(--k)), calc(var(--vy) * var(--k)), 0);
+  transition: transform 2.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ---- Layer inner: endless automatic drift ---- */
+.layer-inner {
+  position: absolute;
+  inset: 0;
+  animation: layerDrift var(--dur) ease-in-out infinite alternate;
+}
+
+/* k = how strongly the layer reacts, ax/ay = drift distance, dur = drift time */
+.layer-0 { --k: 0.4; --ax: 40px;  --ay: 30px; --dur: 70s; }
+.layer-1 { --k: 0.9; --ax: 70px;  --ay: 55px; --dur: 50s; }
+.layer-2 { --k: 1.5; --ax: 110px; --ay: 80px; --dur: 36s; }
+
+@keyframes layerDrift {
+  from { transform: translate3d(calc(var(--ax) * -1), calc(var(--ay) * -1), 0); }
+  to   { transform: translate3d(var(--ax), var(--ay), 0); }
+}
+
+/* ---- Each circle also floats on its own ---- */
+.orb {
+  position: absolute;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: var(--out);
+  animation: orbFloat var(--odur) ease-in-out infinite alternate;
+}
+.orb.inset { box-shadow: var(--in); }
+
+@keyframes orbFloat {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(var(--ox), var(--oy)) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layer-inner, .orb { animation: none; }
+}
