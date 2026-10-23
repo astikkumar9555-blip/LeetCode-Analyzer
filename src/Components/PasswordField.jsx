@@ -1,15 +1,23 @@
 import { useState } from "react";
 import { Icon } from "./Icons";
 
-export default function PasswordField({ placeholder, value, onChange }) {
+// status: "" | "ok" | "bad"  → green / red ring around the box
+export default function PasswordField({
+  placeholder,
+  value,
+  onChange,
+  autoComplete = "current-password",
+  status = "",
+}) {
   const [show, setShow] = useState(false);
 
   return (
-    <div className="field">
+    <div className={`field ${status}`}>
       <input
         type={show ? "text" : "password"}
         placeholder={placeholder}
         value={value}
+        autoComplete={autoComplete}
         onChange={(e) => onChange(e.target.value)}
       />
       <button

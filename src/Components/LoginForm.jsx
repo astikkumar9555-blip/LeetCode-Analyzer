@@ -4,21 +4,31 @@ import PasswordField from "./PasswordField";
 import SwitchRow from "./SwitchRow";
 import { isEmail } from "../services/authApi";
 
+const isLeetCodeId = (v) => /^[A-Za-z0-9_.-]{1,40}$/.test(v);
+
 export default function LoginForm({ goTo, onLogin, onSuccess }) {
-  const [form, setForm] = useState({ email: "", password: "", remember: false });
+  const [form, setForm] = useState({
+    email: "",
+    leetcodeId: "",
+    password: "",
+    remember: false,
+  });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isEmail(form.email) || !form.password) {
-      return setError("Enter a valid email and password");
-    }
+    if (!isEmail(form.email)) return setError("Enter a valid email address");
+    if (!isLeetCodeId(form.leetcodeId.trim())) return setError("Enter a valid LeetCode user ID");
+    if (!form.password) return setError("Enter your password");
+
     setLoading(true);
     setError("");
     try {
-      if (onLogin) await onLogin(form); // your real login API (throw Error to show message)
+      // data = { email, leetcodeId, password, remember }
+      if (onLogin) await onLogin({ ...form, leetcodeId: form.leetcodeId.trim() });
       onSuccess({
+        to: "app", // after the animation → onAuthSuccess (your dashboard)
         title: "Verified successfully",
         sub: "Welcome back — signing you in",
         steps: ["Credentials checked", "Session secured", "Loading your dashboard"],
@@ -40,8 +50,19 @@ export default function LoginForm({ goTo, onLogin, onSuccess }) {
         <input
           type="email"
           placeholder="Email Address"
+          autoComplete="email"
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
+      </div>
+
+      <div className="field">
+        <input
+          type="text"
+          placeholder="LeetCode User ID"
+          autoComplete="off"
+          value={form.leetcodeId}
+          onChange={(e) => setForm({ ...form, leetcodeId: e.target.value })}
         />
       </div>
 

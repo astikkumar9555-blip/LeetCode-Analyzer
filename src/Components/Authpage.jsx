@@ -16,7 +16,7 @@ export default function AuthPage({ onLogin, onSignup, onAuthSuccess }) {
   const [successInfo, setSuccessInfo] = useState(null);
   const locked = useRef(false);
 
-  // 360° spin: the page content is swapped halfway, while the card's blank back is facing you
+  // 360° spin: the content is swapped halfway, while the card's blank back faces you
   const goTo = (next) => {
     if (locked.current) return;
     locked.current = true;
@@ -33,9 +33,15 @@ export default function AuthPage({ onLogin, onSignup, onAuthSuccess }) {
     goTo("success");
   };
 
-  const finish = () => {
-    if (onAuthSuccess) onAuthSuccess();
-    else goTo("login");
+  // called when the 6-second countdown ends (or "Go now" is clicked)
+  const finish = (info) => {
+    if (info?.to === "login") {
+      goTo("login");                 // password reset / sign up → Login page
+    } else if (onAuthSuccess) {
+      onAuthSuccess();               // login → your dashboard
+    } else {
+      goTo("login");
+    }
   };
 
   const renderView = () => {
@@ -64,7 +70,6 @@ export default function AuthPage({ onLogin, onSignup, onAuthSuccess }) {
   };
 
   return (
-    // the class "view-xxx" tells the background where to move for each page
     <div className={`auth-page view-${view}`}>
       <ParallaxBackground />
 

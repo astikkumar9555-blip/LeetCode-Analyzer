@@ -22,8 +22,9 @@ export default function SignupForm({ goTo, onSignup, onSuccess }) {
     try {
       if (onSignup) await onSignup(form); // your real signup API
       onSuccess({
+        to: "login", // after the animation → back to the Login page
         title: "Account created",
-        sub: "Welcome aboard — setting things up",
+        sub: "Welcome aboard — taking you to login",
         steps: ["Account created", "Profile set up", "Workspace ready"],
       });
     } catch (err) {
@@ -43,6 +44,7 @@ export default function SignupForm({ goTo, onSignup, onSuccess }) {
         <input
           type="text"
           placeholder="Full Name"
+          autoComplete="name"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
@@ -52,6 +54,7 @@ export default function SignupForm({ goTo, onSignup, onSuccess }) {
         <input
           type="email"
           placeholder="Email Address"
+          autoComplete="email"
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
@@ -59,11 +62,13 @@ export default function SignupForm({ goTo, onSignup, onSuccess }) {
 
       <PasswordField
         placeholder="Password"
+        autoComplete="new-password"
         value={form.password}
         onChange={(v) => setForm({ ...form, password: v })}
       />
       <PasswordField
         placeholder="Confirm Password"
+        autoComplete="new-password"
         value={form.confirm}
         onChange={(v) => setForm({ ...form, confirm: v })}
       />

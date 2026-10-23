@@ -10,10 +10,14 @@
   --accent: #0a66c2;
   --accent-icon: #1677e5;
   --ok: #1fa97a;
+  --danger: #d64545;
 
   --out: 8px 8px 18px var(--shadow-dark), -8px -8px 18px var(--shadow-light);
   --out-sm: 5px 5px 12px var(--shadow-dark), -5px -5px 12px var(--shadow-light);
   --in: inset 4px 4px 9px var(--shadow-dark), inset -4px -4px 9px var(--shadow-light);
+
+  --card-h: 620px;     /* card height */
+  --field-gap: 18px;   /* gap between input boxes */
 
   /* where the parallax background moves on each page */
   --vx: 0px;
@@ -36,15 +40,15 @@
 }
 
 .view-login   { --vx: 0px;    --vy: 0px; }
-.view-signup  { --vx: 120px;  --vy: 60px; }
-.view-forgot  { --vx: -110px; --vy: 80px; }
-.view-reset   { --vx: 80px;   --vy: -90px; }
-.view-success { --vx: -50px;  --vy: -60px; }
+.view-signup  { --vx: 140px;  --vy: 70px; }
+.view-forgot  { --vx: -130px; --vy: 90px; }
+.view-reset   { --vx: 90px;   --vy: -100px; --card-h: 600px; } /* 20px shorter */
+.view-success { --vx: -60px;  --vy: -70px; }
 
 /* ============ 360° spin card ============ */
 .flip-scene {
   width: 360px;
-  height: 620px;
+  height: var(--card-h);
   perspective: 1500px;
   position: relative;
   z-index: 3;
@@ -132,7 +136,11 @@
 }
 
 /* ============ Inputs (pressed-in) ============ */
-.field { position: relative; width: 100%; margin-bottom: 15px; }
+.field {
+  position: relative;
+  width: 100%;
+  margin-bottom: var(--field-gap);
+}
 
 .field input {
   width: 100%;
@@ -150,6 +158,29 @@
 }
 .field input::placeholder { color: var(--muted); }
 .field input:focus { box-shadow: var(--in), 0 0 0 2px rgba(10, 102, 194, 0.25); }
+
+/* green / red ring for "passwords match" */
+.field.ok input  { box-shadow: var(--in), 0 0 0 2px rgba(31, 169, 122, 0.4); }
+.field.bad input { box-shadow: var(--in), 0 0 0 2px rgba(214, 69, 69, 0.35); }
+
+/* remove the browser's own password eye (the "extra eye") */
+.auth-page input::-ms-reveal,
+.auth-page input::-ms-clear {
+  display: none;
+}
+.auth-page input::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+}
+
+/* remove the blue tint Chrome/Edge paints on autofilled fields */
+.auth-page input:-webkit-autofill,
+.auth-page input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+  transition: background-color 99999s ease-in-out 0s;
+}
 
 .eye {
   position: absolute;
@@ -170,35 +201,93 @@
 .otp-row {
   display: flex;
   justify-content: space-between;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 .otp-row input {
   width: 100%;
   min-width: 0;
-  height: 48px;
+  height: 58px;
   border: none;
   outline: none;
-  border-radius: 12px;
+  border-radius: 14px;
   text-align: center;
   font-family: inherit;
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.35rem;
+  font-weight: 700;
   color: var(--accent);
+  caret-color: var(--accent);
   background: var(--bg);
   box-shadow: var(--in);
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
-.otp-row input:focus { box-shadow: var(--in), 0 0 0 2px rgba(10, 102, 194, 0.3); }
+.otp-row input.filled {
+  box-shadow: var(--in), 0 0 0 2px rgba(10, 102, 194, 0.18);
+}
+.otp-row input:focus {
+  transform: translateY(-2px);
+  box-shadow: var(--in), 0 0 0 2px rgba(10, 102, 194, 0.45);
+}
 
-.resend {
+.otp-meta {
   width: 100%;
-  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 22px;
   font-size: 0.7rem;
-  color: var(--muted);
-  text-align: center;
 }
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: 20px;
+  box-shadow: var(--in);
+  color: var(--accent);
+  font-weight: 500;
+}
+.pill.expired { color: var(--danger); }
+
+/* ============ Password strength meter ============ */
+.pw-group { width: 100%; }
+.pw-group .field { margin-bottom: 10px; }
+
+.strength {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 2px var(--field-gap);
+}
+.strength .bars {
+  flex: 1;
+  display: flex;
+  gap: 5px;
+}
+.strength .bars span {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg);
+  box-shadow: var(--in);
+  transition: background 0.3s ease;
+}
+.strength .bars span.on { box-shadow: none; }
+.strength .bars span.lvl-1 { background: #e5534b; }
+.strength .bars span.lvl-2 { background: #f0a030; }
+.strength .bars span.lvl-3 { background: #8bc34a; }
+.strength .bars span.lvl-4 { background: var(--ok); }
+
+.strength .label {
+  font-size: 0.66rem;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.strength .label.lvl-1 { color: #e5534b; }
+.strength .label.lvl-2 { color: #d98a1c; }
+.strength .label.lvl-3 { color: #6ea43a; }
+.strength .label.lvl-4 { color: var(--ok); }
 
 /* ============ Misc ============ */
 .row {
@@ -206,7 +295,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 2px 0 18px;
+  margin: 0 0 20px;
   font-size: 0.72rem;
 }
 .remember { display: flex; align-items: center; gap: 6px; color: var(--muted); cursor: pointer; }
@@ -227,7 +316,7 @@
   width: 100%;
   margin: 0 0 10px;
   font-size: 0.72rem;
-  color: #d64545;
+  color: var(--danger);
   text-align: center;
 }
 
@@ -307,7 +396,7 @@
   stroke-dasharray: 327; /* 2 * 3.14 * 52 */
   stroke-dashoffset: 327;
   filter: drop-shadow(0 0 4px rgba(31, 169, 122, 0.45));
-  animation: ringFill 3.8s ease-in-out 0.3s forwards;
+  animation: ringFill 5s ease-in-out 0.3s forwards;
 }
 
 .check-core {
@@ -331,10 +420,10 @@
 .steps {
   width: 100%;
   list-style: none;
-  margin: 0 0 20px;
+  margin: 0 0 22px;
   padding: 0;
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 
 .step {
@@ -371,6 +460,8 @@
 }
 
 .redirect { margin: 0; font-size: 0.72rem; color: var(--muted); }
+.redirect b { color: var(--accent); font-weight: 600; }
+.go-now { margin-top: 8px; font-size: 0.72rem; }
 
 /* ============ Confetti (rendered on <body>) ============ */
 .confetti {

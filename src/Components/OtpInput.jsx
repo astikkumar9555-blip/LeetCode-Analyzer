@@ -1,7 +1,13 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 export default function OtpInput({ otp, setOtp }) {
   const refs = useRef([]);
+
+  // focus the first box when the page opens
+  useEffect(() => {
+    const t = setTimeout(() => refs.current[0]?.focus(), 50);
+    return () => clearTimeout(t);
+  }, []);
 
   const handleChange = (i, e) => {
     const digit = e.target.value.replace(/\D/g, "").slice(-1);
@@ -46,9 +52,12 @@ export default function OtpInput({ otp, setOtp }) {
         <input
           key={i}
           ref={(el) => (refs.current[i] = el)}
+          className={d ? "filled" : ""}
           value={d}
           inputMode="numeric"
+          autoComplete="off"
           maxLength={1}
+          onFocus={(e) => e.target.select()}
           onChange={(e) => handleChange(i, e)}
           onKeyDown={(e) => handleKeyDown(i, e)}
         />

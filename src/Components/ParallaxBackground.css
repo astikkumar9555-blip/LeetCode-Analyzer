@@ -6,32 +6,33 @@
   pointer-events: none;
 }
 
-/* ---- Layer wrapper: moves to a new spot each time the page changes ---- */
+/* ---- Layer wrapper: glides to a new spot each time the page changes ---- */
 .layer {
   position: absolute;
   inset: 0;
   transform: translate3d(calc(var(--vx) * var(--k)), calc(var(--vy) * var(--k)), 0);
-  transition: transform 2.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 1.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* ---- Layer inner: endless automatic drift ---- */
+/* ---- Layer inner: endless automatic drift (faster than before) ---- */
 .layer-inner {
   position: absolute;
   inset: 0;
-  animation: layerDrift var(--dur) ease-in-out infinite alternate;
+  will-change: transform;
+  animation: layerDrift calc(var(--dur) / var(--speed)) ease-in-out infinite alternate;
 }
 
-/* k = how strongly the layer reacts, ax/ay = drift distance, dur = drift time */
-.layer-0 { --k: 0.4; --ax: 40px;  --ay: 30px; --dur: 70s; }
-.layer-1 { --k: 0.9; --ax: 70px;  --ay: 55px; --dur: 50s; }
-.layer-2 { --k: 1.5; --ax: 110px; --ay: 80px; --dur: 36s; }
+/* k = reaction to page change, ax/ay = drift distance, dur = drift time (smaller = faster) */
+.layer-0 { --k: 0.4; --ax: 70px;  --ay: 50px;  --dur: 26s; }
+.layer-1 { --k: 0.9; --ax: 120px; --ay: 90px;  --dur: 17s; }
+.layer-2 { --k: 1.5; --ax: 170px; --ay: 120px; --dur: 11s; }
 
 @keyframes layerDrift {
   from { transform: translate3d(calc(var(--ax) * -1), calc(var(--ay) * -1), 0); }
   to   { transform: translate3d(var(--ax), var(--ay), 0); }
 }
 
-/* ---- Each circle also floats on its own ---- */
+/* ---- Each circle also floats along its own curved path ---- */
 .orb {
   position: absolute;
   width: var(--s);
@@ -39,13 +40,15 @@
   border-radius: 50%;
   background: var(--bg);
   box-shadow: var(--out);
+  will-change: transform;
   animation: orbFloat var(--odur) ease-in-out infinite alternate;
 }
 .orb.inset { box-shadow: var(--in); }
 
 @keyframes orbFloat {
   0%   { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(var(--ox), var(--oy)) scale(1.08); }
+  50%  { transform: translate(calc(var(--ox) * 0.3), var(--oy)) scale(1.07); }
+  100% { transform: translate(var(--ox), calc(var(--oy) * 0.2)) scale(0.94); }
 }
 
 @media (prefers-reduced-motion: reduce) {
