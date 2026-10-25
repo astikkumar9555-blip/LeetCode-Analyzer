@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode Analyzer</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <h1>LeetCode Analyzer</h1>
+      <label class="switch">
+        <input type="checkbox" id="toggle" />
+        <span class="track" aria-hidden="true"></span>
+        <span class="sr-only">Turn tracking on or off</span>
+      </label>
+    </header>
+    <p id="state" class="state" role="status"></p>
+
+    <section aria-label="What has been counted so far">
+      <h2>Counted so far (this browser only)</h2>
+      <dl class="stats">
+        <div><dt>Problems</dt><dd id="s-problems">0</dd></div>
+        <div><dt>Active time</dt><dd id="s-time">0 min</dd></div>
+        <div><dt>Edits</dt><dd id="s-edits">0</dd></div>
+        <div><dt>Pastes</dt><dd id="s-pastes">0</dd></div>
+        <div><dt>Runs</dt><dd id="s-runs">0</dd></div>
+        <div><dt>Submits</dt><dd id="s-submits">0</dd></div>
+      </dl>
+      <ul id="recent" class="recent"></ul>
+    </section>
+
+    <section aria-label="What is collected">
+      <h2>What is collected</h2>
+      <ul class="rules">
+        <li><b>Counted:</b> edits, pastes, Run and Submit clicks, active time, pauses.</li>
+        <li><b>Never read or saved:</b> your code, the clipboard, cookies, passwords, other sites.</li>
+        <li>Shared only with your own dashboard address. Nothing leaves this browser otherwise.</li>
+      </ul>
+    </section>
+
+    <button id="delete" type="button" class="danger">Delete all collected data</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "LeetCode Analyzer - Edit Effort",
+  "version": "0.1.0",
+  "description": "Counts how much you edit code on LeetCode problem pages. Your code is never read or stored. Data stays in this browser and is shared only with your own dashboard.",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/problems/*"],
+      "js": ["core.js", "tracker.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["http://localhost:5173/*", "http://127.0.0.1:5173/*"],
+      "js": ["bridge.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_title": "LeetCode Analyzer",
+    "default_popup": "popup.html"
+  }
+}
