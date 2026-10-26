@@ -27,9 +27,8 @@
   z-index: 2;
   perspective: 1800px;
   width: min(420px, calc(100vw - 24px));
-  height: min(700px, calc(100vh - 32px));
-  height: min(700px, calc(100dvh - 32px));
-}
+   height: min(640px, calc(100vh - 32px));
+  height: min(640px, calc(100dvh - 32px));}
 
 .flip-card {
   position: relative;

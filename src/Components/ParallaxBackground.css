@@ -4,15 +4,11 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  --mx: 0;
-  --my: 0;
 }
 
-/* outer span follows the mouse, inner span floats slowly */
+/* static: the circles do not move */
 .pbg-orb {
   position: absolute;
-  transform: translate3d(calc(var(--mx) * var(--d) * 1px), calc(var(--my) * var(--d) * 1px), 0);
-  transition: transform 0.35s ease-out;
 }
 
 .pbg-shape {
@@ -21,7 +17,6 @@
   height: 100%;
   border-radius: 50%;
   background: var(--neu-bg);
-  animation: pbg-float 14s ease-in-out infinite;
 }
 
 .pbg-raised {
@@ -35,23 +30,4 @@
     inset 10px 10px 22px var(--neu-lo),
     inset -10px -10px 22px var(--neu-hi),
     6px 6px 16px rgba(195, 203, 216, 0.5);
-}
-
-@keyframes pbg-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-14px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pbg-orb {
-    transition: none;
-  }
-  .pbg-shape {
-    animation: none;
-  }
 }

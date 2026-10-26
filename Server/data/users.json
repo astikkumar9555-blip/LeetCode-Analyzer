@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ed4b752b-e2e6-457f-8b1b-15f62d5b8fe9",
+    "name": "Ashutosh",
+    "email": "ashutosh25@gmail.com",
+    "leetcodeUsername": "astikkumar9555",
+    "passwordHash": "$2b$10$abt3rdSuczy0TDzLWzFsZuFtyYjaeD.UmaDSLcT8jrK/5sm7gBjDm",
+    "verified": true,
+    "createdAt": "2026-10-26T06:14:17.215Z"
+  },
+  {
+    "id": "bb207313-e271-4378-9edf-93d5102a12b2",
+    "name": "ASHUTOSH KUMAR",
+    "email": "ashutosh2512089@akgec.ac.in",
+    "leetcodeUsername": "9648494830",
+    "passwordHash": "$2b$10$Vc2Dkm4xHg416Dq2BzeNuOx9mxPj2vFFMe0vAMd2/7hwfjPP5Z3f6",
+    "verified": true,
+    "createdAt": "2026-10-26T16:13:31.425Z"
+  }
+]
