@@ -1,12 +1,12 @@
  /* Dark analytics dashboard. Topic page styles are in TopicAnalysis.css */
-/* 
+
 .dash {
-  --bg: #060608;
-  --panel: #0c0c11;
-  --line: #1e1e27;
-  --text: #f3f3f7;
-  --muted: #a3a3b3;
-  --indigo: #6d5df6;
+  --bg: #111111;
+  --panel: #0f0f12;
+  --line: #c9c9d8;
+  --text: #c589c5;
+  --muted: #fff5f5;
+  --indigo: #2b18d2;
   --indigo-soft: #a79fff;
   --easy: #3ecf8e;
   --med: #f5a524;
@@ -39,10 +39,10 @@
 .dash select:focus-visible {
   outline: 2px solid var(--indigo-soft);
   outline-offset: 2px;
-} */
+}
 
 /* ---------- sidebar ---------- */
-/* .dash-side {
+.dash-side {
   position: sticky;
   top: 0;
   align-self: flex-start;
@@ -56,8 +56,8 @@
   padding: 14px 0;
   background: #050507;
   border-right: 1px solid var(--line);
-} */
-/* 
+}
+
 .dash-logo {
   width: 40px;
   height: 40px;
@@ -105,10 +105,10 @@
 
 .side-spacer {
   flex: 1;
-} */
+}
 
 /* ---------- top bar ---------- */
-/* .dash-main {
+.dash-main {
   flex: 1;
   min-width: 0;
 }
@@ -173,10 +173,10 @@
   border: 1px solid var(--line);
   border-radius: 999px;
   font-size: 13px;
-} */
+}
 
 /* ---------- content ---------- */
-/* .dash-content {
+.dash-content {
   display: grid;
   gap: 18px;
   max-width: 1500px;
@@ -269,10 +269,10 @@
   to {
     transform: rotate(360deg);
   }
-} */
+}
 
 /* ---------- stat cards ---------- */
-/* .stat-grid {
+.stat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 18px;
@@ -322,10 +322,10 @@
   min-height: 1.3em;
   font-size: 12.5px;
   color: var(--muted);
-} */
+}
 
 /* ---------- LeetCode card ---------- */
-/* .user-link {
+.user-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -445,10 +445,10 @@
   color: #9b80ff;
   border-color: #33265c;
   background: #130f23;
-} */
+}
 
 /* ---------- activity calendar ---------- */
-/* .cal-summary {
+.cal-summary {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -552,10 +552,10 @@
 
 .cal-legend .cal-cell {
   --cell: 12px;
-} */
+}
 
----------- difficulty tags ----------
-/* .diff {
+/* ---------- difficulty tags ---------- */
+.diff {
   display: inline-block;
   padding: 3px 10px;
   border-radius: 999px;
@@ -574,35 +574,35 @@
 .diff-hard {
   color: var(--hard);
   background: rgba(240, 72, 106, 0.14);
-} */
+}
 
----------- recent submissions ----------
-/* .sub-list {
+/* ---------- recent submissions ---------- */
+.sub-list {
   list-style: none;
   margin: 0;
   padding: 0;
-} */
+}
 
-/* .sub-list li {
+.sub-list li {
   display: flex;
   align-items: center;
   gap: 14px;
   padding: 13px 0;
   border-top: 1px solid var(--line);
-} */
+}
 
-/* .sub-list li:first-child {
+.sub-list li:first-child {
   border-top: 0;
   padding-top: 0;
-} */
+}
 
-/* .status-dot {
+.status-dot {
   flex: 0 0 auto;
   width: 10px;
   height: 10px;
   border-radius: 50%;
-} */
-/* .status-dot.ok {
+}
+.status-dot.ok {
   background: var(--easy);
 }
 .status-dot.bad {
@@ -614,9 +614,9 @@
   min-width: 0;
   display: grid;
   gap: 3px;
-} */
+}
 
-/* .sub-main a {
+.sub-main a {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -632,23 +632,23 @@
 .sub-meta {
   font-size: 12px;
   color: var(--muted);
-} */
+}
 
-/* .sub-time {
+.sub-time {
   flex: 0 0 76px;
   text-align: right;
   font-size: 12px;
   color: var(--muted);
-} */
+}
 
 /* ---------- responsive ---------- */
-/* @media (max-width: 900px) {
+@media (max-width: 900px) {
   .leet-body {
     grid-template-columns: 1fr;
   }
-} */
+}
 
-/* @media (max-width: 640px) {
+@media (max-width: 640px) {
   .dash {
     flex-direction: column;
   }
@@ -661,8 +661,8 @@
     padding: 8px 12px;
     border-right: 0;
     border-bottom: 1px solid var(--line);
-  } */
-  /* .dash-logo {
+  }
+  .dash-logo {
     margin: 0 8px 0 0;
   }
   .dash-nav {
@@ -674,8 +674,8 @@
   .synced,
   .user-chip {
     display: none;
-  } */
-  /* .dash-content {
+  }
+  .dash-content {
     padding: 16px 14px 36px;
   }
   .leet-left {
@@ -688,15 +688,13 @@
   .sub-time {
     display: none;
   }
-} */
-/* 
+}
+
 @media (prefers-reduced-motion: reduce) {
   .spinner {
     animation-duration: 3s;
   }
-} */
-
-
+}
 
 
 
